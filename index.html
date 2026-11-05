@@ -123,10 +123,12 @@
   .drink figure.wide{width:100%;}
   .drink img{width:100%;}
   .price{
-    position:absolute; display:flex; align-items:center; justify-content:center; width:46px; height:46px;
+    /* Rośnie ze zdjęciem, żeby zawsze zakrywać miejsce po cenie wydrukowanej na karcie */
+    position:absolute; display:flex; align-items:center; justify-content:center; width:29.5%; min-width:46px; aspect-ratio:1;
     transform:translate(-50%,-50%); border-radius:50%; background:#fff; color:var(--ink);
     font-size:13px; font-weight:800; line-height:1; white-space:nowrap;
   }
+  .wide .price{width:24%;}
   .drink-txt{padding-bottom:18px;}
   .drink h4{margin:0; font-size:16px; font-weight:800; line-height:1.15;}
   .drink p{margin-top:4px; font-size:13px; line-height:1.3;}
