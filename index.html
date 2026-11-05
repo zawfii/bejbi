@@ -169,9 +169,24 @@
   }
   .thumb-nav a{display:flex; align-items:center; justify-content:center; min-height:48px; font-size:15px; font-weight:800; text-decoration:none;}
 
+  /* BANER O EVENTACH */
+  .promo{
+    position:fixed; left:12px; right:12px; bottom:80px; z-index:30;
+    display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:6px;
+    padding:8px 4px 8px 16px; border-radius:20px; background:var(--pink); color:var(--ink);
+    border:2px solid var(--ink); animation:promo-in .35s ease-out;
+  }
+  .promo[hidden]{display:none;}
+  .promo b{display:block; font-size:16px; font-weight:800; line-height:1.2;}
+  .promo span{display:block; font-size:14px; line-height:1.3;}
+  .promo .btn{min-height:44px; padding:0 16px; font-size:15px;}
+  .promo button{appearance:none; width:44px; height:44px; padding:0; border:0; background:none; color:inherit; cursor:pointer;}
+  .promo svg{width:20px; height:20px; margin:auto; fill:none; stroke:currentColor; stroke-width:2.4;}
+  @keyframes promo-in{from{opacity:0; transform:translateY(16px);}}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    .ticker-track{animation:none;}
+    .ticker-track,.promo{animation:none;}
   }
 
   /* ponytail: komputer to na razie proste rozłożenie wersji z telefonu, do zaprojektowania po akceptacji mobile */
@@ -195,6 +210,7 @@
     .cups img{aspect-ratio:1534/294;}
     .foot-bottom{padding-bottom:24px;}
     .thumb-nav{display:none;}
+    .promo{left:auto; right:24px; bottom:24px; width:420px;}
   }
 </style>
 </head>
@@ -360,6 +376,15 @@
   </div>
 </footer>
 
+<aside class="promo" id="promo" aria-label="Wynajem na urodziny i eventy" hidden>
+  <div>
+    <b>Urodziny albo event?</b>
+    <span>Kawiarnię można wynająć.</span>
+  </div>
+  <a class="btn btn-solid" href="#eventy">Sprawdź</a>
+  <button type="button" aria-label="Zamknij"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19"/></svg></button>
+</aside>
+
 <nav class="thumb-nav" aria-label="Szybkie przejścia">
   <a href="#menu">Menu</a>
   <a href="#galeria">Galeria</a>
@@ -388,6 +413,20 @@
   status.textContent = open ? 'Otwarte do 18:00' : now < 9.5 ? 'Otwieramy o 9:30' : 'Jutro od 9:30';
   status.classList.toggle('open', open);
   status.hidden = false;
+
+  // Baner o eventach: raz na wizytę, po 5 s, chyba że ktoś już dotarł do sekcji
+  const promo = document.getElementById('promo');
+  let promoDone = false;
+  try { promoDone = sessionStorage.getItem('bejbi-promo') === '1'; } catch {}
+  const closePromo = () => {
+    promoDone = true;
+    promo.hidden = true;
+    try { sessionStorage.setItem('bejbi-promo', '1'); } catch {}
+  };
+  promo.querySelector('button').addEventListener('click', closePromo);
+  promo.querySelector('a').addEventListener('click', closePromo);
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) closePromo(); }).observe(document.getElementById('eventy'));
+  setTimeout(() => { if (!promoDone) promo.hidden = false; }, 5000);
 </script>
 
 </body>
