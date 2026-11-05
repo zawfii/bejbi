@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bejbi — kawiarnia na rozdrożu</title>
-<meta name="description" content="Bejbi — kawiarnia na rozdrożu. Świeża kawa, lemoniady, słodycze i wnętrze, które trzeba zobaczyć.">
+<meta name="description" content="Bejbi — kawiarnia na rozdrożu. Kawa, matcha, autorskie napoje i wnętrze, które trzeba zobaczyć.">
 <meta name="theme-color" content="#FFEC00">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content="Bejbi">
 <meta property="og:title" content="Bejbi — kawiarnia na rozdrożu">
-<meta property="og:description" content="Świeża kawa, lemoniady, słodycze i wnętrze, które trzeba zobaczyć. Al. Wyzwolenia 3/5, Warszawa.">
+<meta property="og:description" content="Kawa, matcha, autorskie napoje i wnętrze, które trzeba zobaczyć. Al. Wyzwolenia 3/5, Warszawa.">
 <meta property="og:url" content="https://bejbi.vercel.app/">
 <meta property="og:image" content="https://bejbi.vercel.app/assets/og.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -97,12 +97,14 @@
   .vibe-img{width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 62%;}
 
   /* MENU */
-  .menu{--bg:var(--pink); --fg:var(--ink); background:var(--bg); color:var(--fg); padding:56px var(--gutter); transition:background-color .25s ease, color .25s ease;}
-  .menu[data-tab="lemoniady"]{--bg:var(--green); --fg:var(--paper);}
-  .menu[data-tab="slodko"]{--bg:var(--yellow); --fg:var(--ink);}
+  /* #FEEB00 to tło zdjęć z karty, inaczej widać krawędzie */
+  .menu{--bg:#FEEB00; --fg:var(--ink); background:var(--bg); color:var(--fg); padding:56px var(--gutter); transition:background-color .25s ease, color .25s ease;}
+  .menu[data-tab="klasyki"]{--bg:var(--ink); --fg:var(--paper);}
+  .menu[data-tab="matcha"]{--bg:var(--green); --fg:var(--paper);}
+  .menu[data-tab="reszta"]{--bg:var(--pink); --fg:var(--ink);}
   .menu-inner{max-width:720px; margin:0 auto;}
   .menu-intro{margin-top:12px;}
-  .tabs{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:24px;}
+  .tabs{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin-top:24px;}
   .tabs button{
     appearance:none; min-height:48px; padding:0 4px; border-radius:999px; border:2px solid var(--fg);
     background:transparent; color:var(--fg); font-family:inherit; font-size:15px; font-weight:800; cursor:pointer;
@@ -112,7 +114,23 @@
   .row{display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:13px 0; border-bottom:1px solid currentColor; font-size:18px; font-weight:700; line-height:1.25;}
   .row small{display:block; margin-top:2px; font-size:14px; font-weight:500; line-height:1.3;}
   .row > b{flex:none; font-weight:800; white-space:nowrap;}
-  .menu-note{margin-top:20px; font-size:13px; line-height:1.4;}
+  .menu-note{margin-top:20px; font-size:14px; line-height:1.4;}
+  .menu-note a{font-weight:700;}
+  .panel-note{margin-bottom:8px;}
+  .drinks{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 12px;}
+  .drink{display:grid; grid-row:span 2; grid-template-rows:subgrid; gap:10px;}
+  .drink figure{position:relative; align-self:end; width:90%; margin:0;}
+  .drink figure.wide{width:100%;}
+  .drink img{width:100%;}
+  .price{
+    position:absolute; display:flex; align-items:center; justify-content:center; width:46px; height:46px;
+    transform:translate(-50%,-50%); border-radius:50%; background:#fff; color:var(--ink);
+    font-size:13px; font-weight:800; line-height:1; white-space:nowrap;
+  }
+  .drink-txt{padding-bottom:18px;}
+  .drink h4{margin:0; font-size:16px; font-weight:800; line-height:1.15;}
+  .drink p{margin-top:4px; font-size:13px; line-height:1.3;}
+  .drink small{display:block; margin-top:4px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;}
 
   /* GALERIA */
   .gallery{background:var(--paper); padding:56px 0;}
@@ -202,6 +220,8 @@
     .vibe-txt{padding-block:80px;}
     .vibe-img{height:100%; aspect-ratio:auto;}
     .menu,.gallery,.events,.location{padding-block:88px;}
+    .menu-inner{max-width:1000px;}
+    .drinks{grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:24px;}
     .carousel{scrollbar-width:auto;}
     .carousel::-webkit-scrollbar{display:block;}
     .location{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
@@ -272,7 +292,7 @@
     <ol>
       <li><b>01</b><span>Świeżo palona kawa parzona codziennie, bez kompromisów.</span></li>
       <li><b>02</b><span>Wnętrze zaprojektowane tak, żeby robić zdjęcia — i jeszcze bardziej, żeby w nim usiąść.</span></li>
-      <li><b>03</b><span>Miejsce na szybkie espresso w biegu i na całe popołudnie z lemoniadą.</span></li>
+      <li><b>03</b><span>Miejsce na szybkie espresso w biegu i na całe popołudnie z matchą.</span></li>
     </ol>
   </div>
   <img class="vibe-img" src="assets/wnetrze-fotel.jpg" width="874" height="1270" loading="lazy" alt="Niebieski fotel, różowe kafle i zielone fotele w Bejbi">
@@ -281,36 +301,102 @@
 <section class="menu" id="menu" data-tab="kawa">
   <div class="menu-inner">
     <h2>Co nalejemy</h2>
-    <p class="menu-intro">Mała karta, duże charaktery. Pytaj baristę o to, czego tu nie widzisz — pewnie i tak zrobimy.</p>
+    <p class="menu-intro">Na rozdrożu, ale zawsze w dobrą stronę.</p>
     <div class="tabs">
-      <button type="button" data-tab="kawa" aria-pressed="true">Kawa</button>
-      <button type="button" data-tab="lemoniady" aria-pressed="false">Lemoniady</button>
-      <button type="button" data-tab="slodko" aria-pressed="false">Na słodko</button>
+      <button type="button" data-tab="specjaly" aria-pressed="true">Specjały</button>
+      <button type="button" data-tab="klasyki" aria-pressed="false">Klasyki</button>
+      <button type="button" data-tab="matcha" aria-pressed="false">Matcha</button>
+      <button type="button" data-tab="reszta" aria-pressed="false">Reszta</button>
     </div>
 
-    <div data-panel="kawa">
-      <h3>Na zimno i na poważnie</h3>
-      <div class="row"><span>Espresso</span><b>9 zł</b></div>
-      <div class="row"><span>Flat white<small>mleko owsiane w cenie</small></span><b>15 zł</b></div>
-      <div class="row"><span>Bejbi Latte<small>nasz podpis, cynamon + miód</small></span><b>17 zł</b></div>
-      <div class="row"><span>Cold brew</span><b>14 zł</b></div>
+    <div data-panel="specjaly">
+      <h3>Specjały</h3>
+      <div class="drinks">
+        <article class="drink">
+          <figure><img src="assets/menu/ginger-rush.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Ginger Rush</h4><p>ginger beer, doppio, ginger cream</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/coconut-matcha.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">29 zł</b></figure>
+          <div class="drink-txt"><h4>Coconut Matcha Cloud</h4><p>creamy matcha, coconut water</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/coconut-coffee.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Coconut Coffee Cloud</h4><p>creamy espresso, coconut water</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure class="wide"><img src="assets/menu/mascarpone.jpg" width="240" height="322" loading="lazy" alt=""><b class="price" style="left:80.4%;top:88.2%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Mascarpone Americano</h4><p>mascarpone cream, ice americano</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure class="wide"><img src="assets/menu/malinianka.jpg" width="270" height="462" loading="lazy" alt=""><b class="price" style="left:90%;top:91.8%">33 zł</b></figure>
+          <div class="drink-txt"><h4>Malinianka by Karol Staniak</h4><p>maliny, miód, mleko, matcha, waniliowa śmietanka i kruszonka</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/strawberry.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Strawberry Ice Latte</h4><p>strawberry pulp, milk, doppio, vanilla cream</p><small>cold / hot</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/banana-espresso.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Banana Milkespresso</h4><p>smashed banana, milk, doppio, vanilla cream</p><small>cold / hot</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/marakuja.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">26 zł</b></figure>
+          <div class="drink-txt"><h4>Marakuja Tonic Espresso</h4><p>marakuja pulp, tonic, doppio</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/banana-matcha.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Banana Milkmatcha</h4><p>banana pulp, milk, matcha, cream</p><small>cold / hot</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/hochija.jpg" width="192" height="303" loading="lazy" alt=""><b class="price" style="left:100%;top:33.3%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Hochija Plum</h4><p>hochija, milk, plum jam, whipped cream</p><small>cold / hot</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/pumpkin.jpg" width="192" height="303" loading="lazy" alt=""><b class="price" style="left:100%;top:33.3%">26 zł</b></figure>
+          <div class="drink-txt"><h4>Pumpkin Spicelatte</h4><p>pumpkin syrup, spices, milk, whipped cream</p><small>hot</small></div>
+        </article>
+      </div>
+      <div class="row"><span>Biscoff Latte<small>biscoff creamy, doppio, milk, biscoff crumbles &amp; cookie · cold / hot</small></span><b>28 zł</b></div>
+      <p class="menu-note">Co mamy wprowadzić? <a href="https://ig.me/m/bejbi_na_rozdrozu" target="_blank" rel="noopener">Powiedz nam, czego byś się napił/a.</a></p>
     </div>
-    <div data-panel="lemoniady" hidden>
-      <h3>Hold my milk</h3>
-      <div class="row"><span>Cytryna &amp; mięta</span><b>14 zł</b></div>
-      <div class="row"><span>Malina &amp; limonka</span><b>15 zł</b></div>
-      <div class="row"><span>Brzoskwinia &amp; tymianek<small>sezonowa</small></span><b>16 zł</b></div>
-      <div class="row"><span>Bejbi Spritz<small>bezalkoholowy</small></span><b>18 zł</b></div>
+    <div data-panel="klasyki" hidden>
+      <h3>Klasyki</h3>
+      <div class="row"><span>Espresso / doppio</span><b>8 / 11 zł</b></div>
+      <div class="row"><span>Lungo</span><b>13 zł</b></div>
+      <div class="row"><span>Przelew<small>hot / iced</small></span><b>15 zł</b></div>
+      <div class="row"><span>Cappuccino</span><b>16 zł</b></div>
+      <div class="row"><span>Americano<small>hot / iced</small></span><b>15 zł</b></div>
+      <div class="row"><span>Latte<small>hot / iced</small></span><b>17 zł</b></div>
+      <div class="row"><span>Flat white</span><b>17 zł</b></div>
+      <div class="row"><span>Kakao mocha</span><b>17 zł</b></div>
+      <div class="row"><span>Kakao</span><b>16 zł</b></div>
+      <div class="row"><span>Dirty coffee<small>Milkbok</small></span><b>20 zł</b></div>
+      <div class="row"><span>Tonic espresso<small>TH Tonic</small></span><b>22 zł</b></div>
+      <div class="row"><span>Orange espresso<small>Fresh J.</small></span><b>22 zł</b></div>
+      <div class="row"><span>Kombucha espresso</span><b>24 zł</b></div>
+      <div class="row"><span>Herbata<small>Rotea</small></span><b>18 zł</b></div>
     </div>
-    <div data-panel="slodko" hidden>
-      <h3>Zero nudy</h3>
-      <div class="row"><span>Cynamonka na ciepło</span><b>12 zł</b></div>
-      <div class="row"><span>Sernik na zimno</span><b>16 zł</b></div>
-      <div class="row"><span>Brownie z solą morską</span><b>14 zł</b></div>
-      <div class="row"><span>Croissant dnia</span><b>10 zł</b></div>
+    <div data-panel="matcha" hidden>
+      <h3>Matcha</h3>
+      <p class="panel-note">Matcha od Moshi Matcha z regionu Hotaru.</p>
+      <div class="row"><span>Matcha<small>on water</small></span><b>20 zł</b></div>
+      <div class="row"><span>Matcha latte</span><b>25 zł</b></div>
+      <div class="row"><span>Matcha tonic<small>TH</small></span><b>28 zł</b></div>
+      <div class="row"><span>Matcha orange<small>Fresh J.</small></span><b>26 zł</b></div>
+      <div class="row"><span>Matcha kombucha</span><b>29 zł</b></div>
+      <div class="row"><span>Coconut water matcha</span><b>28 zł</b></div>
+    </div>
+    <div data-panel="reszta" hidden>
+      <h3>Reszta</h3>
+      <div class="row"><span>Kombucha</span><b>19 zł</b></div>
+      <div class="row"><span>Tonic Thomas</span><b>15 zł</b></div>
+      <div class="row"><span>Henry</span><b>19 zł</b></div>
+      <div class="row"><span>Bombilla</span><b>20 zł</b></div>
+      <div class="row"><span>Ciastko</span></div>
     </div>
 
-    <p class="menu-note">Ceny przykładowe — pełną i aktualną kartę znajdziesz w lokalu na rozdrożu.</p>
+    <p class="menu-note">Mleko owsiane, migdałowe, kokosowe: + 2 zł.</p>
   </div>
 </section>
 
@@ -414,7 +500,7 @@
   status.classList.toggle('open', open);
   status.hidden = false;
 
-  // Baner o eventach: raz na wizytę, po 5 s, chyba że ktoś już dotarł do sekcji
+  // Baner o eventach: raz na wizytę, po 2 s, chyba że ktoś już dotarł do sekcji
   const promo = document.getElementById('promo');
   let promoDone = false;
   try { promoDone = sessionStorage.getItem('bejbi-promo') === '1'; } catch {}
@@ -426,7 +512,7 @@
   promo.querySelector('button').addEventListener('click', closePromo);
   promo.querySelector('a').addEventListener('click', closePromo);
   new IntersectionObserver(([e]) => { if (e.isIntersecting) closePromo(); }).observe(document.getElementById('eventy'));
-  setTimeout(() => { if (!promoDone) promo.hidden = false; }, 5000);
+  setTimeout(() => { if (!promoDone) promo.hidden = false; }, 2000);
 </script>
 
 </body>
