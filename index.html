@@ -77,7 +77,7 @@
   .tagline{margin-top:14px; font-size:30px; line-height:1.06; font-weight:800; letter-spacing:-.02em;}
   .hero-sub{margin-top:12px;}
   .hero-ctas{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:20px;}
-  .hero-img{width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 30%;}
+  .hero-img{width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 12%;}
 
   /* PASEK */
   .ticker{background:var(--ink); color:var(--yellow); overflow:hidden; padding:14px 0;}
@@ -94,7 +94,7 @@
   .vibe ol{list-style:none; margin:28px 0 0; padding:0; display:flex; flex-direction:column; gap:16px;}
   .vibe li{display:flex; gap:14px;}
   .vibe li b{flex:none; width:36px; font-size:24px; line-height:1.1; font-weight:900; letter-spacing:-.04em; color:var(--yellow);}
-  .vibe-img{width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 62%;}
+  .vibe-img{width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 48%;}
 
   /* MENU */
   /* #FEEB00 to tło zdjęć z karty, inaczej widać krawędzie */
@@ -144,9 +144,10 @@
     scroll-snap-type:x mandatory; scroll-padding-left:var(--gutter); scrollbar-width:none;
   }
   .carousel::-webkit-scrollbar{display:none;}
-  .carousel > *{flex:0 0 77%; max-width:340px; min-width:0; aspect-ratio:4/5; border-radius:16px; scroll-snap-align:start;}
-  .carousel img{object-fit:cover;}
-  .card{display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; font-size:54px; line-height:.95; font-weight:900; letter-spacing:-.04em; text-transform:uppercase;}
+  /* Stała wysokość, szerokość z proporcji zdjęcia: zdjęcia o różnych formatach nie są przycinane */
+  .carousel > *{flex:0 0 auto; height:min(118vw,480px); border-radius:16px; scroll-snap-align:start;}
+  .carousel img{width:auto; max-width:none;}
+  .card{aspect-ratio:3/4; display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; font-size:54px; line-height:.95; font-weight:900; letter-spacing:-.04em; text-transform:uppercase;}
   .card-yellow{background:var(--yellow);}
   .card-green{background:var(--green); color:var(--paper);}
   .card-ink{background:var(--ink); color:var(--yellow);}
@@ -214,13 +215,14 @@
     :root{--gutter:40px;}
     .top-links{display:flex; align-items:center; gap:28px;}
     .top-links a{font-weight:800; text-decoration:none;}
-    .hero{display:grid; grid-template-columns:1fr 1fr;}
+    /* height:0 + min-height:100%: pionowe zdjęcie wypełnia wiersz, ale go nie rozciąga */
+    .hero{display:grid; grid-template-columns:1fr 1fr; min-height:min(86vh,760px);}
     .hero-txt{align-self:center; padding-block:40px;}
     h1{font-size:7vw;}
-    .hero-img{height:100%; min-height:640px; aspect-ratio:auto;}
+    .hero-img{height:0; min-height:100%; aspect-ratio:auto;}
     .vibe{display:grid; grid-template-columns:1fr 1fr;}
     .vibe-txt{padding-block:80px;}
-    .vibe-img{height:100%; aspect-ratio:auto;}
+    .vibe-img{height:0; min-height:100%; aspect-ratio:auto;}
     .menu,.gallery,.events,.location{padding-block:88px;}
     .menu-inner{max-width:1000px;}
     .drinks{grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:24px;}
@@ -273,7 +275,7 @@
       <a class="btn" href="https://www.instagram.com/bejbi_na_rozdrozu/" target="_blank" rel="noopener">Śledź na IG</a>
     </div>
   </div>
-  <img class="hero-img" src="assets/wnetrze-hero.jpg" width="874" height="1275" fetchpriority="high" alt="Wnętrze Bejbi: żyrandol, niebieska podłoga i zielony aksamitny fotel">
+  <img class="hero-img" src="assets/wnetrze-hero.jpg" width="941" height="1672" fetchpriority="high" alt="Wnętrze Bejbi: żyrandol, niebieska podłoga i zielony aksamitny fotel">
 </section>
 
 <div class="ticker" aria-hidden="true">
@@ -297,7 +299,7 @@
       <li><b>03</b><span>Miejsce na szybkie espresso w biegu i na całe popołudnie z matchą.</span></li>
     </ol>
   </div>
-  <img class="vibe-img" src="assets/wnetrze-fotel.jpg" width="874" height="1270" loading="lazy" alt="Niebieski fotel, różowe kafle i zielone fotele w Bejbi">
+  <img class="vibe-img" src="assets/wnetrze-fotel.jpg" width="941" height="1672" loading="lazy" alt="Niebieski fotel, różowe kafle i zielone fotele w Bejbi">
 </section>
 
 <section class="menu" id="menu" data-tab="kawa">
@@ -314,49 +316,50 @@
     <div data-panel="specjaly">
       <h3>Specjały</h3>
       <div class="drinks">
+        <!-- Pary: kokos, banan, orzeźwiające, owoc z mlekiem, deserowe, duże specjały -->
         <article class="drink">
-          <figure><img src="assets/menu/ginger-rush.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">28 zł</b></figure>
-          <div class="drink-txt"><h4>Ginger Rush</h4><p>ginger beer, doppio, ginger cream</p><small>cold</small></div>
+          <figure><img src="assets/menu/coconut-coffee.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Coconut Coffee Cloud</h4><p>creamy espresso, coconut water</p><small>cold</small></div>
         </article>
         <article class="drink">
           <figure><img src="assets/menu/coconut-matcha.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">29 zł</b></figure>
           <div class="drink-txt"><h4>Coconut Matcha Cloud</h4><p>creamy matcha, coconut water</p><small>cold</small></div>
         </article>
         <article class="drink">
-          <figure><img src="assets/menu/coconut-coffee.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">28 zł</b></figure>
-          <div class="drink-txt"><h4>Coconut Coffee Cloud</h4><p>creamy espresso, coconut water</p><small>cold</small></div>
-        </article>
-        <article class="drink">
-          <figure class="wide"><img src="assets/menu/mascarpone.jpg" width="240" height="322" loading="lazy" alt=""><b class="price" style="left:80.4%;top:88.2%">28 zł</b></figure>
-          <div class="drink-txt"><h4>Mascarpone Americano</h4><p>mascarpone cream, ice americano</p><small>cold</small></div>
-        </article>
-        <article class="drink">
-          <figure class="wide"><img src="assets/menu/malinianka.jpg" width="270" height="462" loading="lazy" alt=""><b class="price" style="left:90%;top:91.8%">33 zł</b></figure>
-          <div class="drink-txt"><h4>Malinianka by Karol Staniak</h4><p>maliny, miód, mleko, matcha, waniliowa śmietanka i kruszonka</p><small>cold</small></div>
-        </article>
-        <article class="drink">
-          <figure><img src="assets/menu/strawberry.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
-          <div class="drink-txt"><h4>Strawberry Ice Latte</h4><p>strawberry pulp, milk, doppio, vanilla cream</p><small>cold / hot</small></div>
-        </article>
-        <article class="drink">
           <figure><img src="assets/menu/banana-espresso.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
           <div class="drink-txt"><h4>Banana Milkespresso</h4><p>smashed banana, milk, doppio, vanilla cream</p><small>cold / hot</small></div>
-        </article>
-        <article class="drink">
-          <figure><img src="assets/menu/marakuja.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">26 zł</b></figure>
-          <div class="drink-txt"><h4>Marakuja Tonic Espresso</h4><p>marakuja pulp, tonic, doppio</p><small>cold</small></div>
         </article>
         <article class="drink">
           <figure><img src="assets/menu/banana-matcha.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
           <div class="drink-txt"><h4>Banana Milkmatcha</h4><p>banana pulp, milk, matcha, cream</p><small>cold / hot</small></div>
         </article>
         <article class="drink">
+          <figure><img src="assets/menu/ginger-rush.jpg" width="195" height="285" loading="lazy" alt=""><b class="price" style="left:100%;top:26.7%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Ginger Rush</h4><p>ginger beer, doppio, ginger cream</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/marakuja.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">26 zł</b></figure>
+          <div class="drink-txt"><h4>Marakuja Tonic Espresso</h4><p>marakuja pulp, tonic, doppio</p><small>cold</small></div>
+        </article>
+        <article class="drink">
+          <figure><img src="assets/menu/strawberry.jpg" width="192" height="268" loading="lazy" alt=""><b class="price" style="left:100%;top:24.6%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Strawberry Ice Latte</h4><p>strawberry pulp, milk, doppio, vanilla cream</p><small>cold / hot</small></div>
+        </article>
+        <article class="drink">
           <figure><img src="assets/menu/hochija.jpg" width="192" height="303" loading="lazy" alt=""><b class="price" style="left:100%;top:33.3%">28 zł</b></figure>
           <div class="drink-txt"><h4>Hochija Plum</h4><p>hochija, milk, plum jam, whipped cream</p><small>cold / hot</small></div>
         </article>
         <article class="drink">
+          <figure class="wide"><img src="assets/menu/mascarpone.jpg" width="240" height="322" loading="lazy" alt=""><b class="price" style="left:80.4%;top:88.2%">28 zł</b></figure>
+          <div class="drink-txt"><h4>Mascarpone Americano</h4><p>mascarpone cream, ice americano</p><small>cold</small></div>
+        </article>
+        <article class="drink">
           <figure><img src="assets/menu/pumpkin.jpg" width="192" height="303" loading="lazy" alt=""><b class="price" style="left:100%;top:33.3%">26 zł</b></figure>
           <div class="drink-txt"><h4>Pumpkin Spicelatte</h4><p>pumpkin syrup, spices, milk, whipped cream</p><small>hot</small></div>
+        </article>
+        <article class="drink">
+          <figure class="wide"><img src="assets/menu/malinianka.jpg" width="270" height="462" loading="lazy" alt=""><b class="price" style="left:90%;top:91.8%">33 zł</b></figure>
+          <div class="drink-txt"><h4>Malinianka by Karol Staniak</h4><p>maliny, miód, mleko, matcha, waniliowa śmietanka i kruszonka</p><small>cold</small></div>
         </article>
         <article class="drink">
           <figure class="wide"><img src="assets/menu/biscoff.jpg" width="375" height="460" loading="lazy" alt=""><b class="price" style="left:12%;top:12%">28 zł</b></figure>
@@ -412,13 +415,14 @@
     <p class="gallery-hint">Tu akurat możesz swipe'ować →</p>
   </div>
   <div class="carousel" role="group" aria-label="Zdjęcia z Bejbi, przewijane w bok" tabindex="0">
-    <img src="assets/galeria-okno.jpg" width="507" height="634" loading="lazy" alt="Duże okno z drzewem, niebieski fotel i turkusowy miś">
+    <img src="assets/galeria-lawka.jpg" width="714" height="1000" loading="lazy" alt="Dwie osoby rozmawiają na ławce z różowych kafli, przed nimi matcha na stoliku z lastryka">
     <div class="card card-yellow">Don't swipe wariaty</div>
-    <img src="assets/galeria-zyrandol.jpg" width="467" height="583" loading="lazy" alt="Kryształowy żyrandol i różowy obraz">
+    <img src="assets/galeria-malinianka.jpg" width="750" height="1000" loading="lazy" alt="Dwie uśmiechnięte osoby z Malinianką w dłoniach, przed nimi tacki z malinami">
+    <img src="assets/galeria-stolik.jpg" width="562" height="1000" loading="lazy" alt="Grupa znajomych przy żółtym stoliku na zewnątrz, z napojami Bejbi">
     <div class="card card-green">Zero nudy</div>
-    <img src="assets/galeria-bar.jpg" width="467" height="583" loading="lazy" alt="Lada w czarno-białe wzory i podświetlony cokół">
+    <img src="assets/galeria-fotel.jpg" width="714" height="1000" loading="lazy" alt="Osoba z kubkiem kawy na zielonym aksamitnym fotelu przy różowych kaflach">
+    <img src="assets/galeria-matcha.jpg" width="562" height="1000" loading="lazy" alt="Dwie osoby z napojami na ławce z różowych kafli, nad nimi kubki Bejbi na ścianie">
     <div class="card card-ink">Hold my milk</div>
-    <img src="assets/galeria-zielone.jpg" width="489" height="610" loading="lazy" alt="Zielone fotele i żółte stoliki">
   </div>
   <div class="gallery-cta">
     <a class="btn btn-solid" href="https://www.instagram.com/bejbi_na_rozdrozu/" target="_blank" rel="noopener">Więcej na Instagramie →</a>
