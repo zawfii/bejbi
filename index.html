@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bejbi — kawiarnia na rozdrożu</title>
+<meta name="description" content="Bejbi — kawiarnia na rozdrożu. Świeża kawa, lemoniady, słodycze i wnętrze, które trzeba zobaczyć.">
+<meta name="theme-color" content="#FFEC00">
+<link rel="icon" href="assets/bejbi_logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFEC00;
+    --ink:#1E1B05;
+    --paper:#FFFBEA;
+    --cobalt:#1A36B4;
+    --green:#0E5F36;
+    --pink:#F6C9D4;
+    --gutter:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--yellow); color:var(--ink);
+    font:500 16px/1.45 "Figtree", system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;}
+  img{max-width:100%; height:auto;}
+  a{color:inherit;}
+  p{margin:0;}
+  section{scroll-margin-top:8px;}
+  ::selection{background:var(--ink); color:var(--yellow);}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid currentColor; outline-offset:2px;}
+
+  h1,h2,h3{margin:0; font-weight:900; letter-spacing:-.04em; text-transform:uppercase;}
+  h2{font-size:clamp(38px,11.3vw,54px); line-height:.98;}
+  .eyebrow{font-size:13px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; margin-bottom:14px;}
+  .btn{
+    display:flex; align-items:center; justify-content:center; min-height:52px; padding:0 20px;
+    border-radius:999px; border:2px solid var(--ink); font-weight:800; text-decoration:none;
+    transition:transform .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid{background:var(--ink); color:var(--yellow);}
+
+  /* NAGŁÓWEK */
+  .top{display:flex; align-items:center; justify-content:space-between; padding:12px var(--gutter);}
+  .top a{display:flex; align-items:center; min-height:44px; min-width:44px;}
+  .top-links{display:none;}
+  .logo{width:37px; height:44px; fill:currentColor;}
+  .ig{width:26px; height:26px; margin:auto; fill:none; stroke:currentColor; stroke-width:2.2;}
+
+  /* START */
+  .hero-txt{padding:12px var(--gutter) 24px;}
+  .hero-meta{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; font-size:13px;}
+  .hero-meta b{font-weight:800; letter-spacing:.08em; text-transform:uppercase;}
+  .status{display:inline-flex; align-items:center; gap:7px; font-weight:700;}
+  .status::before{content:""; width:9px; height:9px; border-radius:50%; background:#D6321C;}
+  .status.open::before{background:var(--green);}
+  h1{display:flex; align-items:flex-start; gap:.06em; margin-top:14px; font-size:clamp(96px,31vw,150px); line-height:.9; white-space:nowrap;}
+  h1 svg{width:.26em; height:auto; margin-top:.05em; fill:currentColor; flex:none;}
+  .tagline{margin-top:14px; font-size:30px; line-height:1.06; font-weight:800; letter-spacing:-.02em;}
+  .hero-sub{margin-top:12px;}
+  .hero-ctas{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:20px;}
+  .hero-img{width:100%; aspect-ratio:4/5; object-fit:cover; object-position:50% 30%;}
+
+  /* PASEK */
+  .ticker{background:var(--ink); color:var(--yellow); overflow:hidden; padding:14px 0;}
+  .ticker-track{display:flex; width:max-content; animation:ticker 28s linear infinite;}
+  .ticker span{display:flex; align-items:center; gap:16px; padding-right:16px; font-size:24px; line-height:1.3; font-weight:900; letter-spacing:-.04em; white-space:nowrap;}
+  .ticker svg{width:18px; height:16px; fill:currentColor;}
+  @keyframes ticker{to{transform:translateX(-50%);}}
+
+  /* O NAS */
+  .vibe{background:var(--cobalt); color:var(--paper);}
+  .vibe-txt{padding:56px var(--gutter) 40px;}
+  .vibe .eyebrow{color:var(--yellow);}
+  .vibe-txt > p{margin-top:20px; font-size:17px; line-height:1.5;}
+  .vibe ol{list-style:none; margin:28px 0 0; padding:0; display:flex; flex-direction:column; gap:16px;}
+  .vibe li{display:flex; gap:14px;}
+  .vibe li b{flex:none; width:36px; font-size:24px; line-height:1.1; font-weight:900; letter-spacing:-.04em; color:var(--yellow);}
+  .vibe-img{width:100%; aspect-ratio:1; object-fit:cover; object-position:50% 62%;}
+
+  /* MENU */
+  .menu{--bg:var(--pink); --fg:var(--ink); background:var(--bg); color:var(--fg); padding:56px var(--gutter); transition:background-color .25s ease, color .25s ease;}
+  .menu[data-tab="lemoniady"]{--bg:var(--green); --fg:var(--paper);}
+  .menu[data-tab="slodko"]{--bg:var(--yellow); --fg:var(--ink);}
+  .menu-inner{max-width:720px; margin:0 auto;}
+  .menu-intro{margin-top:12px;}
+  .tabs{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:24px;}
+  .tabs button{
+    appearance:none; min-height:48px; padding:0 4px; border-radius:999px; border:2px solid var(--fg);
+    background:transparent; color:var(--fg); font-family:inherit; font-size:15px; font-weight:800; cursor:pointer;
+  }
+  .tabs button[aria-pressed="true"]{background:var(--fg); color:var(--bg);}
+  h3{margin:28px 0 8px; font-size:28px; line-height:1.05;}
+  .row{display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:13px 0; border-bottom:1px solid currentColor; font-size:18px; font-weight:700; line-height:1.25;}
+  .row small{display:block; margin-top:2px; font-size:14px; font-weight:500; line-height:1.3;}
+  .row > b{flex:none; font-weight:800; white-space:nowrap;}
+  .menu-note{margin-top:20px; font-size:13px; line-height:1.4;}
+
+  /* GALERIA */
+  .gallery{background:var(--paper); padding:56px 0;}
+  .gallery-head,.gallery-cta{padding:0 var(--gutter);}
+  .gallery .eyebrow{letter-spacing:.04em; text-transform:none;}
+  .gallery-hint{margin-top:10px; font-weight:700;}
+  .carousel{
+    display:flex; gap:8px; margin-top:20px; padding:0 var(--gutter); overflow-x:auto;
+    scroll-snap-type:x mandatory; scroll-padding-left:var(--gutter); scrollbar-width:none;
+  }
+  .carousel::-webkit-scrollbar{display:none;}
+  .carousel > *{flex:0 0 77%; max-width:340px; min-width:0; aspect-ratio:4/5; border-radius:16px; scroll-snap-align:start;}
+  .carousel img{object-fit:cover;}
+  .card{display:flex; align-items:center; justify-content:center; text-align:center; padding:12px; font-size:54px; line-height:.95; font-weight:900; letter-spacing:-.04em; text-transform:uppercase;}
+  .card-yellow{background:var(--yellow);}
+  .card-green{background:var(--green); color:var(--paper);}
+  .card-ink{background:var(--ink); color:var(--yellow);}
+  .gallery-cta{margin-top:24px;}
+
+  /* LOKALIZACJA */
+  .location{background:var(--green); color:var(--paper); padding:56px var(--gutter);}
+  .location .eyebrow,.location h2{color:var(--yellow);}
+  .address{margin-top:20px; font-size:20px; line-height:1.3; font-weight:700;}
+  .btn-map{margin-top:20px; background:var(--yellow); color:var(--ink); border-color:var(--yellow);}
+  .hours{margin-top:28px; display:flex; flex-direction:column; gap:2px;}
+  .hours div{display:flex; justify-content:space-between; gap:12px; align-items:center; min-height:48px; padding:0 14px; border-radius:12px; font-weight:700;}
+  .hours div span:last-child{white-space:nowrap;}
+
+  /* KONIEC */
+  .foot-cta{padding:64px var(--gutter) 20px; text-align:center;}
+  .foot-cta h2{font-size:clamp(38px,11.8vw,58px);}
+  .foot-cta p{margin-top:12px; font-size:19px; font-weight:700; line-height:1.25;}
+  .cups img{
+    width:100%; aspect-ratio:640/294; object-fit:cover;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 34%);
+    mask-image:linear-gradient(to bottom,transparent 0,#000 34%);
+  }
+  .foot-bottom{background:var(--ink); color:var(--paper); padding:16px var(--gutter) 92px; font-size:13px; line-height:1.4;}
+  .foot-links{display:flex; flex-wrap:wrap; gap:4px 20px; font-size:15px; font-weight:800;}
+  .foot-links a{display:inline-flex; align-items:center; min-height:44px;}
+  .foot-bottom p{margin-top:8px;}
+
+  /* DOLNY PASEK */
+  .thumb-nav{
+    position:fixed; left:12px; right:12px; bottom:12px; z-index:20;
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); padding:4px;
+    border-radius:999px; background:var(--ink); color:var(--yellow); border:2px solid var(--yellow);
+  }
+  .thumb-nav a{display:flex; align-items:center; justify-content:center; min-height:48px; font-size:15px; font-weight:800; text-decoration:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .ticker-track{animation:none;}
+  }
+
+  /* ponytail: komputer to na razie proste rozłożenie wersji z telefonu, do zaprojektowania po akceptacji mobile */
+  @media (min-width:900px){
+    :root{--gutter:40px;}
+    .top-links{display:flex; align-items:center; gap:28px;}
+    .top-links a{font-weight:800; text-decoration:none;}
+    .hero{display:grid; grid-template-columns:1fr 1fr;}
+    .hero-txt{align-self:center; padding-block:40px;}
+    .hero-img{height:100%; min-height:640px; aspect-ratio:auto;}
+    .vibe{display:grid; grid-template-columns:1fr 1fr;}
+    .vibe-txt{padding-block:80px;}
+    .vibe-img{height:100%; aspect-ratio:auto;}
+    .menu,.gallery,.location{padding-block:88px;}
+    .carousel{scrollbar-width:auto;}
+    .carousel::-webkit-scrollbar{display:block;}
+    .location{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+    .btn-map{display:inline-flex;}
+    .hours{margin-top:0;}
+    .cups img{aspect-ratio:1534/294;}
+    .foot-bottom{padding-bottom:24px;}
+    .thumb-nav{display:none;}
+  }
+</style>
+</head>
+<body id="top">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="heart" viewBox="245 243 817 736"><path d="M375 243L528 275L644 425L775 266L940 243L1062 393L1031 530L1011 600L855 770L627 979L371 730L255 546L245 381Z"/></symbol>
+</svg>
+
+<header class="top">
+  <a href="#top" aria-label="Bejbi — na górę strony">
+    <svg class="logo" viewBox="343 208 699 837" aria-hidden="true"><path d="M343 223H686L795 253L876 343L901 453L877 545L834 599L811 610L834 623L888 695L915 810L885 925L827 997L723 1045H343ZM462 345V551H696L748 517L760 490L771 453L760 403L727 365L673 345ZM462 672V923H694L747 894L767 866L780 808L767 742L746 705L692 672Z"/><path d="M908 214L941 222L960 246L981 213L1018 208L1042 237L1034 279L1000 318L961 358L913 311L889 266L889 237Z"/></svg>
+  </a>
+  <nav class="top-links" aria-label="Główna">
+    <a href="#vibe">O nas</a>
+    <a href="#menu">Menu</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#rozdroze">Lokalizacja</a>
+  </nav>
+  <a href="https://www.instagram.com/bejbi_na_rozdrozu/" target="_blank" rel="noopener" aria-label="Instagram Bejbi">
+    <svg class="ig" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></svg>
+  </a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-txt">
+    <div class="hero-meta">
+      <b>Kawiarnia na rozdrożu</b>
+      <span class="status" id="status" hidden></span>
+    </div>
+    <h1>BEJBI<svg viewBox="245 243 817 736" aria-hidden="true"><path d="M375 243L528 275L644 425L775 266L940 243L1062 393L1031 530L1011 600L855 770L627 979L371 730L255 546L245 381Z"/></svg></h1>
+    <p class="tagline">Kiedy kawa mówi:<br>hold my milk.</p>
+    <p class="hero-sub">Zielony aksamit, niebieska podłoga, różowe kafle i kawa, która nie udaje że jest nudna. Wpadnij, usiądź, nie swipe'uj.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="#menu">Zobacz menu</a>
+      <a class="btn" href="https://www.instagram.com/bejbi_na_rozdrozu/" target="_blank" rel="noopener">Śledź na IG</a>
+    </div>
+  </div>
+  <img class="hero-img" src="assets/wnetrze-hero.jpg" width="874" height="1275" fetchpriority="high" alt="Wnętrze Bejbi: żyrandol, niebieska podłoga i zielony aksamitny fotel">
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker">
+    <span>ŚWIEŻO PALONA<svg><use href="#heart"/></svg></span>
+    <span>ZERO NUDY<svg><use href="#heart"/></svg></span>
+    <span>HOLD MY MILK<svg><use href="#heart"/></svg></span>
+    <span>NA ROZDROŻU<svg><use href="#heart"/></svg></span>
+    <span>DON'T SWIPE<svg><use href="#heart"/></svg></span>
+  </div>
+</div>
+
+<section class="vibe" id="vibe">
+  <div class="vibe-txt">
+    <div class="eyebrow">O nas</div>
+    <h2>Nie jesteśmy zwykłą kawiarnią.</h2>
+    <p>Bejbi to miejsce, które powstało na rozdrożu — ulic, stylów i dobrych pomysłów. Zielone aksamity obok terrazzo, żyrandol obok surowego betonu, plakaty, które nie pytają o pozwolenie. Pośrodku tego wszystkiego: porządna kawa i ludzie, którzy wiedzą, po co tu przyszli.</p>
+    <ol>
+      <li><b>01</b><span>Świeżo palona kawa parzona codziennie, bez kompromisów.</span></li>
+      <li><b>02</b><span>Wnętrze zaprojektowane tak, żeby robić zdjęcia — i jeszcze bardziej, żeby w nim usiąść.</span></li>
+      <li><b>03</b><span>Miejsce na szybkie espresso w biegu i na całe popołudnie z lemoniadą.</span></li>
+    </ol>
+  </div>
+  <img class="vibe-img" src="assets/wnetrze-fotel.jpg" width="874" height="1270" loading="lazy" alt="Niebieski fotel, różowe kafle i zielone fotele w Bejbi">
+</section>
+
+<section class="menu" id="menu" data-tab="kawa">
+  <div class="menu-inner">
+    <h2>Co nalejemy</h2>
+    <p class="menu-intro">Mała karta, duże charaktery. Pytaj baristę o to, czego tu nie widzisz — pewnie i tak zrobimy.</p>
+    <div class="tabs">
+      <button type="button" data-tab="kawa" aria-pressed="true">Kawa</button>
+      <button type="button" data-tab="lemoniady" aria-pressed="false">Lemoniady</button>
+      <button type="button" data-tab="slodko" aria-pressed="false">Na słodko</button>
+    </div>
+
+    <div data-panel="kawa">
+      <h3>Na zimno i na poważnie</h3>
+      <div class="row"><span>Espresso</span><b>9 zł</b></div>
+      <div class="row"><span>Flat white<small>mleko owsiane w cenie</small></span><b>15 zł</b></div>
+      <div class="row"><span>Bejbi Latte<small>nasz podpis, cynamon + miód</small></span><b>17 zł</b></div>
+      <div class="row"><span>Cold brew</span><b>14 zł</b></div>
+    </div>
+    <div data-panel="lemoniady" hidden>
+      <h3>Hold my milk</h3>
+      <div class="row"><span>Cytryna &amp; mięta</span><b>14 zł</b></div>
+      <div class="row"><span>Malina &amp; limonka</span><b>15 zł</b></div>
+      <div class="row"><span>Brzoskwinia &amp; tymianek<small>sezonowa</small></span><b>16 zł</b></div>
+      <div class="row"><span>Bejbi Spritz<small>bezalkoholowy</small></span><b>18 zł</b></div>
+    </div>
+    <div data-panel="slodko" hidden>
+      <h3>Zero nudy</h3>
+      <div class="row"><span>Cynamonka na ciepło</span><b>12 zł</b></div>
+      <div class="row"><span>Sernik na zimno</span><b>16 zł</b></div>
+      <div class="row"><span>Brownie z solą morską</span><b>14 zł</b></div>
+      <div class="row"><span>Croissant dnia</span><b>10 zł</b></div>
+    </div>
+
+    <p class="menu-note">Ceny przykładowe — pełną i aktualną kartę znajdziesz w lokalu na rozdrożu.</p>
+  </div>
+</section>
+
+<section class="gallery" id="galeria">
+  <div class="gallery-head">
+    <div class="eyebrow">@bejbi_na_rozdrozu</div>
+    <h2>Zajrzyj na nasz feed</h2>
+    <p class="gallery-hint">Tu akurat możesz swipe'ować →</p>
+  </div>
+  <div class="carousel" role="group" aria-label="Zdjęcia z Bejbi, przewijane w bok" tabindex="0">
+    <img src="assets/galeria-okno.jpg" width="507" height="634" loading="lazy" alt="Duże okno z drzewem, niebieski fotel i turkusowy miś">
+    <div class="card card-yellow">Don't swipe wariaty</div>
+    <img src="assets/galeria-zyrandol.jpg" width="467" height="583" loading="lazy" alt="Kryształowy żyrandol i różowy obraz">
+    <div class="card card-green">Zero nudy</div>
+    <img src="assets/galeria-bar.jpg" width="467" height="583" loading="lazy" alt="Lada w czarno-białe wzory i podświetlony cokół">
+    <div class="card card-ink">Hold my milk</div>
+    <img src="assets/galeria-zielone.jpg" width="489" height="610" loading="lazy" alt="Zielone fotele i żółte stoliki">
+  </div>
+  <div class="gallery-cta">
+    <a class="btn btn-solid" href="https://www.instagram.com/bejbi_na_rozdrozu/" target="_blank" rel="noopener">Więcej na Instagramie →</a>
+  </div>
+</section>
+
+<section class="location" id="rozdroze">
+  <div>
+    <div class="eyebrow">Zajrzyj</div>
+    <h2>Znajdź nas<br>na rozdrożu.</h2>
+    <p class="address">Al. Wyzwolenia 3/5, 00-572 Warszawa</p>
+    <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Al.%20Wyzwolenia%203%2F5%2C%2000-572%20Warszawa" target="_blank" rel="noopener">Otwórz w mapach</a>
+  </div>
+  <div class="hours">
+    <div><span>Codziennie</span><span>9:30 – 18:00</span></div>
+    <div><span>Święta</span><span>sprawdź IG</span></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-cta">
+    <h2>Wpadnij.<br>Nie swipe'uj.</h2>
+    <p>zostań na jedną kawę, zostań na trzy</p>
+  </div>
+  <picture class="cups">
+    <source media="(min-width:900px)" srcset="assets/kubki-pas-szeroki.jpg">
+    <img src="assets/kubki-pas.jpg" loading="lazy" alt="Stos żółtych kubków Bejbi">
+  </picture>
+  <div class="foot-bottom">
+    <div class="foot-links">
+      <a href="https://www.instagram.com/bejbi_na_rozdrozu/" target="_blank" rel="noopener">Instagram</a>
+      <a href="#menu">Menu</a>
+      <a href="#rozdroze">Lokalizacja</a>
+    </div>
+    <p>© 2026 Bejbi — kawiarnia na rozdrożu<br>zaprojektowane z ♥ i bez nudy</p>
+  </div>
+</footer>
+
+<nav class="thumb-nav" aria-label="Szybkie przejścia">
+  <a href="#menu">Menu</a>
+  <a href="#galeria">Galeria</a>
+  <a href="#rozdroze">Dojazd</a>
+</nav>
+
+<script>
+  // Pasek: druga kopia, żeby pętla była płynna
+  const ticker = document.getElementById('ticker');
+  ticker.append(...[...ticker.children].map(n => n.cloneNode(true)));
+
+  // Zakładki menu
+  const menu = document.getElementById('menu');
+  const tabs = menu.querySelectorAll('.tabs button');
+  tabs.forEach(btn => btn.addEventListener('click', () => {
+    menu.dataset.tab = btn.dataset.tab;
+    tabs.forEach(b => b.setAttribute('aria-pressed', b === btn));
+    menu.querySelectorAll('[data-panel]').forEach(p => { p.hidden = p.dataset.panel !== btn.dataset.tab; });
+  }));
+
+  // Status otwarcia. Godziny muszą się zgadzać z tabelą w sekcji #rozdroze.
+  // ponytail: bierze czas z telefonu i nie zna świąt; strefa Warsaw, gdy zaczną wchodzić turyści z innej strefy
+  const d = new Date(), now = d.getHours() + d.getMinutes() / 60, open = now >= 9.5 && now < 18;
+  const status = document.getElementById('status');
+  status.textContent = open ? 'Otwarte do 18:00' : now < 9.5 ? 'Otwieramy o 9:30' : 'Jutro od 9:30';
+  status.classList.toggle('open', open);
+  status.hidden = false;
+</script>
+
+</body>
+</html>
